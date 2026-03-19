@@ -28,12 +28,85 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            dataGridView1 = new DataGridView();
+            buttonDodaj = new Button();
+            buttonUsun = new Button();
+            buttonZapiszCsv = new Button();
+            buttonWczytajCsv = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            SuspendLayout();
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(88, 40);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersWidth = 62;
+            dataGridView1.Size = new Size(618, 225);
+            dataGridView1.TabIndex = 0;
+            // 
+            // buttonDodaj
+            // 
+            buttonDodaj.Location = new Point(88, 309);
+            buttonDodaj.Name = "buttonDodaj";
+            buttonDodaj.Size = new Size(112, 34);
+            buttonDodaj.TabIndex = 1;
+            buttonDodaj.Text = "Dodaj";
+            buttonDodaj.UseVisualStyleBackColor = true;
+            buttonDodaj.Click += buttonDodaj_Click;
+            // 
+            // buttonUsun
+            // 
+            buttonUsun.Location = new Point(244, 309);
+            buttonUsun.Name = "buttonUsun";
+            buttonUsun.Size = new Size(112, 34);
+            buttonUsun.TabIndex = 2;
+            buttonUsun.Text = "Usun";
+            buttonUsun.UseVisualStyleBackColor = true;
+            buttonUsun.Click += buttonUsun_Click;
+            // 
+            // buttonZapiszCsv
+            // 
+            buttonZapiszCsv.Location = new Point(402, 309);
+            buttonZapiszCsv.Name = "buttonZapiszCsv";
+            buttonZapiszCsv.Size = new Size(151, 34);
+            buttonZapiszCsv.TabIndex = 3;
+            buttonZapiszCsv.Text = "Zapisz csv";
+            buttonZapiszCsv.UseVisualStyleBackColor = true;
+            buttonZapiszCsv.Click += buttonZapiszCsv_Click;
+            // 
+            // buttonWczytajCsv
+            // 
+            buttonWczytajCsv.Location = new Point(594, 309);
+            buttonWczytajCsv.Name = "buttonWczytajCsv";
+            buttonWczytajCsv.Size = new Size(112, 34);
+            buttonWczytajCsv.TabIndex = 4;
+            buttonWczytajCsv.Text = "Wczytaj csv";
+            buttonWczytajCsv.UseVisualStyleBackColor = true;
+            buttonWczytajCsv.Click += buttonWczytajCsv_Click;
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(buttonWczytajCsv);
+            Controls.Add(buttonZapiszCsv);
+            Controls.Add(buttonUsun);
+            Controls.Add(buttonDodaj);
+            Controls.Add(dataGridView1);
+            Name = "Form1";
+            Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private DataGridView dataGridView1;
+        private Button buttonDodaj;
+        private Button buttonUsun;
+        private Button buttonZapiszCsv;
+        private Button buttonWczytajCsv;
     }
 }
