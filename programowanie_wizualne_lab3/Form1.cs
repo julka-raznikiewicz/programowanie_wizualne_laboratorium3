@@ -63,18 +63,15 @@ namespace programowanie_wizualne_lab3
             }
         }
 
-        private void ZapisDoPliku(DataGridView dataGridView1, string filePath)
+        private void ZapisDoPliku(string filePath)
         {
-            string csvContent = "Imie,Nazwisko,Wiek" + Environment.NewLine;
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
+            string csvContent = "ID,Imie,Nazwisko,Wiek,Stanowisko" + Environment.NewLine;
 
-                if (!row.IsNewRow)
-                {
-                    csvContent += string.Join(",", Array.ConvertAll(row.Cells.Cast<DataGridViewCell>()
-                    .ToArray(), c => c.Value)) + Environment.NewLine;
-                }
+            foreach (DataRow row in tabelaPracownikow.Rows)
+            {
+                csvContent += string.Join(",", row.ItemArray) + Environment.NewLine;
             }
+
             File.WriteAllText(filePath, csvContent);
         }
 
@@ -83,13 +80,11 @@ namespace programowanie_wizualne_lab3
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             saveFileDialog1.Filter = "Pliki CSV (*.csv)|*.csv|Wszystkie pliki (*.*)|*.*";
             saveFileDialog1.Title = "Wybierz lokalizacjê zapisu pliku CSV";
-            saveFileDialog1.ShowDialog();
 
-            if (saveFileDialog1.FileName != "")
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                ZapisDoPliku(dataGridView1, saveFileDialog1.FileName);
+                ZapisDoPliku(saveFileDialog1.FileName);
             }
-
         }
 
         private void odczyt(string filePath)
@@ -99,22 +94,36 @@ namespace programowanie_wizualne_lab3
                 MessageBox.Show("Plik CSV nie istnieje.", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
             string[] lines = File.ReadAllLines(filePath);
 
-            DataTable dataTable = new DataTable();
-
-            string[] headers = lines[0].Split(',');
-            foreach (string header in headers)
-            {
-                dataTable.Columns.Add(header);
-            }
+            tabelaPracownikow.Rows.Clear();
 
             for (int i = 1; i < lines.Length; i++)
             {
                 string[] values = lines[i].Split(',');
-                dataTable.Rows.Add(values);
+
+                if (values.Length == 5)
+                {
+                    tabelaPracownikow.Rows.Add(
+                        int.Parse(values[0]),
+                        values[1],
+                        values[2],
+                        int.Parse(values[3]),
+                        values[4]
+                    );
+                }
             }
-            dataGridView1.DataSource = dataTable;
+
+            if (tabelaPracownikow.Rows.Count > 0)
+            {
+                nextId = tabelaPracownikow.AsEnumerable()
+                    .Max(r => r.Field<int>("ID")) + 1;
+            }
+            else
+            {
+                nextId = 1;
+            }
         }
 
         private void buttonWczytajCsv_Click(object sender, EventArgs e)
