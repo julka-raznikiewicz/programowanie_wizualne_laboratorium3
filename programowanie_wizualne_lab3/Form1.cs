@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Windows.Forms;
 
 namespace programowanie_wizualne_lab3
@@ -30,6 +31,32 @@ namespace programowanie_wizualne_lab3
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
             dataGridView1.AllowUserToAddRows = false;
+        }
+
+        private void ZapisDoJson(string filePath)
+        {
+            List<Osoba> lista = PobierzOsobyZTabeli();
+
+            string json = JsonSerializer.Serialize(lista, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+
+            File.WriteAllText(filePath, json);
+        }
+
+        private void OdczytZJson(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                MessageBox.Show("Plik JSON nie istnieje.", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string json = File.ReadAllText(filePath);
+            List<Osoba> lista = JsonSerializer.Deserialize<List<Osoba>>(json);
+
+            WczytajOsobyDoTabeli(lista);
         }
 
         private void buttonDodaj_Click(object sender, EventArgs e)
@@ -137,6 +164,32 @@ namespace programowanie_wizualne_lab3
                 odczyt(openFileDialog1.FileName);
             }
 
+        }
+
+        private void buttonZapiszJson_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Pliki JSON (*.json)|*.json|Wszystkie pliki (*.*)|*.*";
+            saveFileDialog.Title = "Wybierz lokalizacjê zapisu pliku JSON";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ZapisDoJson(saveFileDialog.FileName);
+                MessageBox.Show("Dane zapisano do JSON.");
+            }
+        }
+
+        private void buttonWczytajJson_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Pliki JSON (*.json)|*.json|Wszystkie pliki (*.*)|*.*";
+            openFileDialog.Title = "Wybierz plik JSON do wczytania";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                OdczytZJson(openFileDialog.FileName);
+                MessageBox.Show("Dane wczytano z JSON.");
+            }
         }
     }
 }

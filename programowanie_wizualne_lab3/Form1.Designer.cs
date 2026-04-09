@@ -33,6 +33,8 @@
             buttonUsun = new Button();
             buttonZapiszCsv = new Button();
             buttonWczytajCsv = new Button();
+            buttonZapiszJson = new Button();
+            buttonWczytajJson = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -85,11 +87,33 @@
             buttonWczytajCsv.UseVisualStyleBackColor = true;
             buttonWczytajCsv.Click += buttonWczytajCsv_Click;
             // 
+            // buttonZapiszJson
+            // 
+            buttonZapiszJson.Location = new Point(402, 349);
+            buttonZapiszJson.Name = "buttonZapiszJson";
+            buttonZapiszJson.Size = new Size(133, 34);
+            buttonZapiszJson.TabIndex = 5;
+            buttonZapiszJson.Text = "Zapisz JSON";
+            buttonZapiszJson.UseVisualStyleBackColor = true;
+            buttonZapiszJson.Click += buttonZapiszJson_Click;
+            // 
+            // buttonWczytajJson
+            // 
+            buttonWczytajJson.Location = new Point(594, 349);
+            buttonWczytajJson.Name = "buttonWczytajJson";
+            buttonWczytajJson.Size = new Size(112, 34);
+            buttonWczytajJson.TabIndex = 6;
+            buttonWczytajJson.Text = "Wczytaj JSON";
+            buttonWczytajJson.UseVisualStyleBackColor = true;
+            buttonWczytajJson.Click += buttonWczytajJson_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(buttonWczytajJson);
+            Controls.Add(buttonZapiszJson);
             Controls.Add(buttonWczytajCsv);
             Controls.Add(buttonZapiszCsv);
             Controls.Add(buttonUsun);
@@ -108,5 +132,7 @@
         private Button buttonUsun;
         private Button buttonZapiszCsv;
         private Button buttonWczytajCsv;
+        private Button buttonZapiszJson;
+        private Button buttonWczytajJson;
     }
 }
