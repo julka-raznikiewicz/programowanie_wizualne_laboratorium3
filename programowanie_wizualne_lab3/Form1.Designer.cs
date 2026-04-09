@@ -89,7 +89,7 @@
             // 
             // buttonZapiszJson
             // 
-            buttonZapiszJson.Location = new Point(402, 349);
+            buttonZapiszJson.Location = new Point(223, 349);
             buttonZapiszJson.Name = "buttonZapiszJson";
             buttonZapiszJson.Size = new Size(133, 34);
             buttonZapiszJson.TabIndex = 5;
@@ -99,9 +99,9 @@
             // 
             // buttonWczytajJson
             // 
-            buttonWczytajJson.Location = new Point(594, 349);
+            buttonWczytajJson.Location = new Point(411, 349);
             buttonWczytajJson.Name = "buttonWczytajJson";
-            buttonWczytajJson.Size = new Size(112, 34);
+            buttonWczytajJson.Size = new Size(142, 34);
             buttonWczytajJson.TabIndex = 6;
             buttonWczytajJson.Text = "Wczytaj JSON";
             buttonWczytajJson.UseVisualStyleBackColor = true;
