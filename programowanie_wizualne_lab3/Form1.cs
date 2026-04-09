@@ -2,8 +2,10 @@ using System;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Xml.Serialization;
 
 namespace programowanie_wizualne_lab3
 {
@@ -33,6 +35,50 @@ namespace programowanie_wizualne_lab3
             dataGridView1.AllowUserToAddRows = false;
         }
 
+        private List<Osoba> PobierzOsobyZTabeli()
+        {
+            List<Osoba> lista = new List<Osoba>();
+
+            foreach (DataRow row in tabelaPracownikow.Rows)
+            {
+                lista.Add(new Osoba
+                {
+                    Id = Convert.ToInt32(row["ID"]),
+                    Imie = row["Imie"].ToString(),
+                    Nazwisko = row["Nazwisko"].ToString(),
+                    Wiek = Convert.ToInt32(row["Wiek"]),
+                    Stanowisko = row["Stanowisko"].ToString()
+                });
+            }
+
+            return lista;
+        }
+
+        private void WczytajOsobyDoTabeli(List<Osoba> lista)
+        {
+            tabelaPracownikow.Rows.Clear();
+
+            foreach (Osoba osoba in lista)
+            {
+                tabelaPracownikow.Rows.Add(
+                    osoba.Id,
+                    osoba.Imie,
+                    osoba.Nazwisko,
+                    osoba.Wiek,
+                    osoba.Stanowisko
+                );
+            }
+
+            if (tabelaPracownikow.Rows.Count > 0)
+            {
+                nextId = tabelaPracownikow.AsEnumerable()
+                    .Max(r => r.Field<int>("ID")) + 1;
+            }
+            else
+            {
+                nextId = 1;
+            }
+        }
         private void ZapisDoJson(string filePath)
         {
             List<Osoba> lista = PobierzOsobyZTabeli();
