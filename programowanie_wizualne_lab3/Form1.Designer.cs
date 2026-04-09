@@ -33,6 +33,10 @@
             buttonUsun = new Button();
             buttonZapiszCsv = new Button();
             buttonWczytajCsv = new Button();
+            buttonZapiszXml = new Button();
+            buttonWczytajXml = new Button();
+            button1 = new Button();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -85,11 +89,53 @@
             buttonWczytajCsv.UseVisualStyleBackColor = true;
             buttonWczytajCsv.Click += buttonWczytajCsv_Click;
             // 
+            // buttonZapiszXml
+            // 
+            buttonZapiszXml.Location = new Point(88, 349);
+            buttonZapiszXml.Name = "buttonZapiszXml";
+            buttonZapiszXml.Size = new Size(112, 34);
+            buttonZapiszXml.TabIndex = 5;
+            buttonZapiszXml.Text = "Zapisz XML";
+            buttonZapiszXml.UseVisualStyleBackColor = true;
+            buttonZapiszXml.Click += buttonZapiszXml_Click;
+            // 
+            // buttonWczytajXml
+            // 
+            buttonWczytajXml.Location = new Point(244, 349);
+            buttonWczytajXml.Name = "buttonWczytajXml";
+            buttonWczytajXml.Size = new Size(126, 34);
+            buttonWczytajXml.TabIndex = 6;
+            buttonWczytajXml.Text = "Wczytaj XML";
+            buttonWczytajXml.UseVisualStyleBackColor = true;
+            buttonWczytajXml.Click += buttonWczytajXml_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(418, 349);
+            button1.Name = "button1";
+            button1.Size = new Size(112, 34);
+            button1.TabIndex = 7;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(594, 349);
+            button2.Name = "button2";
+            button2.Size = new Size(112, 34);
+            button2.TabIndex = 8;
+            button2.Text = "button2";
+            button2.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button2);
+            Controls.Add(button1);
+            Controls.Add(buttonWczytajXml);
+            Controls.Add(buttonZapiszXml);
             Controls.Add(buttonWczytajCsv);
             Controls.Add(buttonZapiszCsv);
             Controls.Add(buttonUsun);
@@ -108,5 +154,9 @@
         private Button buttonUsun;
         private Button buttonZapiszCsv;
         private Button buttonWczytajCsv;
+        private Button buttonZapiszXml;
+        private Button buttonWczytajXml;
+        private Button button1;
+        private Button button2;
     }
 }

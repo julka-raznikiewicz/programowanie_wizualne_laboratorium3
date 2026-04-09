@@ -3,6 +3,9 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Text.Json;
+using System.Xml.Serialization;
 
 namespace programowanie_wizualne_lab3
 {
@@ -30,6 +33,80 @@ namespace programowanie_wizualne_lab3
             dataGridView1.MultiSelect = false;
             dataGridView1.ReadOnly = true;
             dataGridView1.AllowUserToAddRows = false;
+        }
+
+        private List<Osoba> PobierzOsobyZTabeli()
+        {
+            List<Osoba> lista = new List<Osoba>();
+
+            foreach (DataRow row in tabelaPracownikow.Rows)
+            {
+                lista.Add(new Osoba
+                {
+                    ID = Convert.ToInt32(row["ID"]),
+                    Imie = row["Imie"].ToString(),
+                    Nazwisko = row["Nazwisko"].ToString(),
+                    Wiek = Convert.ToInt32(row["Wiek"]),
+                    Stanowisko = row["Stanowisko"].ToString()
+                });
+            }
+
+            return lista;
+        }
+
+        private void WczytajOsobyDoTabeli(List<Osoba> lista)
+        {
+            tabelaPracownikow.Rows.Clear();
+
+            foreach (Osoba osoba in lista)
+            {
+                tabelaPracownikow.Rows.Add(
+                    osoba.ID,
+                    osoba.Imie,
+                    osoba.Nazwisko,
+                    osoba.Wiek,
+                    osoba.Stanowisko
+                );
+            }
+
+            if (tabelaPracownikow.Rows.Count > 0)
+            {
+                nextId = tabelaPracownikow.AsEnumerable()
+                    .Max(r => r.Field<int>("ID")) + 1;
+            }
+            else
+            {
+                nextId = 1;
+            }
+        }
+
+        private void ZapisDoXml(string filePath)
+        {
+            List<Osoba> lista = PobierzOsobyZTabeli();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Osoba>));
+
+            using (TextWriter writer = new StreamWriter(filePath))
+            {
+                serializer.Serialize(writer, lista);
+            }
+        }
+
+        private void OdczytZXml(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                MessageBox.Show("Plik XML nie istnieje.", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Osoba>));
+
+            using (TextReader reader = new StreamReader(filePath))
+            {
+                List<Osoba> lista = (List<Osoba>)serializer.Deserialize(reader);
+                WczytajOsobyDoTabeli(lista);
+            }
         }
 
         private void buttonDodaj_Click(object sender, EventArgs e)
@@ -137,6 +214,32 @@ namespace programowanie_wizualne_lab3
                 odczyt(openFileDialog1.FileName);
             }
 
+        }
+
+        private void buttonZapiszXml_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Pliki XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*";
+            saveFileDialog.Title = "Wybierz lokalizacjê zapisu pliku XML";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                ZapisDoXml(saveFileDialog.FileName);
+                MessageBox.Show("Dane zapisano do XML.");
+            }
+        }
+
+        private void buttonWczytajXml_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Pliki XML (*.xml)|*.xml|Wszystkie pliki (*.*)|*.*";
+            openFileDialog.Title = "Wybierz plik XML do wczytania";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                OdczytZXml(openFileDialog.FileName);
+                MessageBox.Show("Dane wczytano z XML.");
+            }
         }
     }
 }
