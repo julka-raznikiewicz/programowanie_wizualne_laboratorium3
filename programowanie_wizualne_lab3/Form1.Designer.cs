@@ -89,7 +89,7 @@
             // 
             // buttonZapiszXml
             // 
-            buttonZapiszXml.Location = new Point(88, 349);
+            buttonZapiszXml.Location = new Point(254, 349);
             buttonZapiszXml.Name = "buttonZapiszXml";
             buttonZapiszXml.Size = new Size(112, 34);
             buttonZapiszXml.TabIndex = 5;
@@ -99,7 +99,7 @@
             // 
             // buttonWczytajXml
             // 
-            buttonWczytajXml.Location = new Point(244, 349);
+            buttonWczytajXml.Location = new Point(427, 349);
             buttonWczytajXml.Name = "buttonWczytajXml";
             buttonWczytajXml.Size = new Size(126, 34);
             buttonWczytajXml.TabIndex = 6;
